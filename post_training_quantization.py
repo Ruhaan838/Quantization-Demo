@@ -5,7 +5,6 @@ from torchvision import datasets, transforms
 from torch import nn, optim
 from torch.nn import functional as F
 
-import matplotlib.pyplot as plt
 from tqdm import tqdm
 from pathlib import Path
 import os
@@ -39,15 +38,6 @@ class SimpleNN(nn.Module):
         x = self.layer_3(x)
         return x
 
-def plot_training_progress(losses, epoch):
-    plt.figure()
-    plt.plot(losses, 'b-', label='Training Loss')
-    plt.title(f'Training Progress - Epoch {epoch}')
-    plt.xlabel('Batch')
-    plt.ylabel('Loss')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
 
 def train(model, dataloader, epochs=5):
     loss_fn = nn.CrossEntropyLoss()
@@ -68,8 +58,6 @@ def train(model, dataloader, epochs=5):
             losses.append(loss.item())
             loss.backward()
             optimizer.step()
-            
-        plot_training_progress(losses, epoch+1)
         
     return losses
 
